@@ -14,9 +14,9 @@ class AuthenticatedSessionController extends Controller
 {
     public function checkLogin(){
         if (Auth::check()) {
-            return redirect("dashboard");
+            return redirect("admin/dashboard");
         }else{
-            return redirect('login');
+            return redirect('admin/login');
         }
     }
 
@@ -51,6 +51,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/admin/login');
     }
 }
