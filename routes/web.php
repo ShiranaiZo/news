@@ -38,8 +38,13 @@ Route::middleware('auth')->group(function () {
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('admin/users', UserController::class);
-    Route::resource('admin/articles', ArticleController::class);
+
+    Route::group(['middleware' => ['roles:1']], function() {
+        Route::resource('admin/users', UserController::class);
+    });
+
+    Route::resource('/admin/articles', ArticleController::class);
+
 });
 
 require __DIR__.'/auth.php';

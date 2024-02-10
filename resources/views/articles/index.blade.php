@@ -26,6 +26,21 @@
                         <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
+
+                @if (Auth::user()->role == 1)
+                    <div class="float-end">
+                        <div class="filter-show d-flex align-items-center">
+                            <span class="me-2">From:</span>
+                            <select class="form-select" id="filter_show" name="filter_show" onchange="articleFrom(this.value)">
+                                <option value="{{ Auth::id() }}" {{ \Request::get('from') ? '' : 'selected'}}>Me (This Account)</option>
+
+                                @foreach ($users as $key_user => $user)
+                                    <option value="{{ $user->id }}" {{ \Request::get('from') == $user->id ? 'selected' : ''}}>{{$user->username}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div class="card-body">
@@ -129,6 +144,10 @@
         // Modal Remove
         function modalRemove(url) {
             $('#form_delete_article').attr("action", url)
+        }
+
+        function articleFrom(id) {
+            window.location.href = "{{ url('admin/articles') }}?from="+id;
         }
     </script>
 @endsection

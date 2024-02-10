@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -11,9 +12,16 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['articles'] = Article::where('user_id', Auth::id())->latest()->get();
+        $from = null;
+
+        if ($request->get('from') && Auth::user()->role == 1) {
+            $from = $request->get('from');
+        }
+
+        $data['articles'] = Article::where('user_id', $from ?? Auth::id())->latest()->get();
+        $data['users'] = User::whereNot('id', Auth::id())->orderBy('name')->get();
 
         return view('articles.index', $data);
     }

@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return redirect('users')->with('success', 'User Saved!');
+        return redirect('admin/users')->with('success', 'User Saved!');
     }
 
     /**
@@ -88,7 +88,7 @@ class UserController extends Controller
 
         $user = User::find($id)->update($data);
 
-        return redirect('users')->with('success', 'User Updated!');
+        return redirect('admin/users')->with('success', 'User Updated!');
     }
 
     /**

@@ -22,7 +22,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('users') }}" id="form_create_user">
+                <form method="POST" action="{{ url('admin/users') }}" id="form_create_user">
                     @method('POST')
                     @csrf
 
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Role <span class="text-danger">*</span></label>
-                            </div>
+                        </div>
 
                             <div class="col-md-8 form-group">
                                 <select class="form-select @error('role') is-invalid @enderror" name="role">
@@ -101,7 +101,7 @@
                         <div class="col-sm-12 d-flex justify-content-end mt-4">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_create_user" id="submit_create_user" onclick='preventDoubleClick("form_create_user", "submit_create_user")'>Submit</button>
 
-                            <a href="{{ url('users') }}" class="btn btn-light-secondary mx-1 mb-1">Back</a>
+                            <a href="{{ url('admin/users') }}" class="btn btn-light-secondary mx-1 mb-1">Back</a>
                         </div>
                     </div>
                 </form>
