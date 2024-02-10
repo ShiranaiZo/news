@@ -65,9 +65,11 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $data['article'] = Article::where('slug', $slug)->first();
+
+        return view('public.detail', $data);
     }
 
     /**

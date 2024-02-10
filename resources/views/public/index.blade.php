@@ -94,7 +94,9 @@
                                     <img src="{{ asset('${article.image}') }}" class="img-fluid rounded-start col-lg-6" style="width: 200px; object-fit: contain;">
 
                                     <div class="card-body col-md-6 d-flex flex-column">
-                                        <h5 class="card-title fw-bold">${article.title}</h5>
+                                        <a href="{{ url('/read') }}/${article.slug}">
+                                            <h5 class="card-title fw-bold">${article.title}</h5>
+                                        </a>
                                         ${cutSentences(article.content)}
 
                                         <p class="mt-auto mb-0">

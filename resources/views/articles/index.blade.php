@@ -35,9 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Title</th>
-                            {{-- <th>Content</th> --}}
                             <th>Publication Date</th>
-                            <th>Author</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,22 +49,20 @@
                                         {{ substr($article->title, 0, 100) }}
                                     </div>
                                 </td>
-                                {{-- <td>
-                                    <div class="datatable-column-width">
-                                        {!! substr($article->content, 0, 100) !!} erohweui
-                                    </div>
-                                </td> --}}
                                 <td>{{ $article->publication_date }}</td>
-                                <td>{{ @$article->user->name }}</td>
                                 <td>
                                     <div class="buttons">
-                                        <a href="{{ url('admin/articles/'.$article->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
+                                        <a href="{{ url('/admin/articles/'.$article->id.'/edit') }}" class="btn icon btn-primary tooltip-class" data-bs-placement="left" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
                                         <button type="button" class="btn icon btn-danger tooltip-class" data-bs-placement="right" title="Remove" data-bs-toggle="modal" data-bs-target="#modal_remove" onclick="modalRemove('{{ url('admin/articles/'.$article->id) }}')">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
+
+                                        <a href="{{ url('/read/'.$article->slug) }}" class="btn icon btn-info tooltip-class" data-bs-placement="left" title="Go To Link" target="_blank">
+                                            <i class="bi bi-send"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

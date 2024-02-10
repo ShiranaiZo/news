@@ -25,6 +25,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/', [ArticleController::class, 'index']);
+Route::get('/read/{slug}', [ArticleController::class, 'show']);
 Route::get('/get-public-articles/{limit}/{search?}', [ArticleController::class, 'getPublicArticles']);
 
 Route::middleware('auth')->group(function () {

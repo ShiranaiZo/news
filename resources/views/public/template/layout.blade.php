@@ -28,7 +28,7 @@
             <header class="mb-5">
                 <div class="header-top">
                     <div class="container">
-                        <a href="" class="mx-auto"><img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" style="width: 75px"></a>
+                        <a href="{{ url('/') }}" class="mx-auto"><img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" style="width: 75px"></a>
                     </div>
                 </div>
             </header>
