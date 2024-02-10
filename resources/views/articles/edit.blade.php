@@ -41,7 +41,7 @@
 
         <div class="card-content">
             <div class="card-body">
-                <form method="POST" action="{{ url('admin/articles/'.$article->id) }}" id="form_update_article">
+                <form method="POST" action="{{ url('admin/articles/'.$article->id) }}" id="form_update_article" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
 

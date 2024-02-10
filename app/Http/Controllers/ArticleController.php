@@ -13,7 +13,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data['articles'] = Article::latest()->get();
+        $data['articles'] = Article::where('user_id', Auth::id())->latest()->get();
 
         return view('articles.index', $data);
     }
@@ -124,5 +124,22 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect('/admin/articles')->with('success', 'Article Deleted!');
+    }
+
+    function getPublicArticles($limit = 10, $search = null)
+    {
+        $articles = Article::with('user')->latest();
+
+        if ($limit != 'all') {
+            $articles = $articles->limit($limit);
+        }
+
+        if ($search) {
+            $articles = $articles->where('title', 'like', '%'.$search.'%')->orWhere('content', 'like', '%'.$search.'%');
+        }
+
+        $articles = $articles->get();
+
+        return response()->json($articles);
     }
 }

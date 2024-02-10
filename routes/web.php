@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('public/index');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('index');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/', [ArticleController::class, 'index']);
+Route::get('/get-public-articles/{limit}/{search?}', [ArticleController::class, 'getPublicArticles']);
 
 Route::middleware('auth')->group(function () {
     // Dashboard

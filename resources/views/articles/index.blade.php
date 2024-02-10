@@ -35,7 +35,7 @@
                             <th>No</th>
                             <th>Image</th>
                             <th>Title</th>
-                            <th>Content</th>
+                            {{-- <th>Content</th> --}}
                             <th>Publication Date</th>
                             <th>Author</th>
                             <th>Action</th>
@@ -51,11 +51,11 @@
                                         {{ substr($article->title, 0, 100) }}
                                     </div>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="datatable-column-width">
-                                        {!! substr($article->content, 0, 100) !!}
+                                        {!! substr($article->content, 0, 100) !!} erohweui
                                     </div>
-                                </td>
+                                </td> --}}
                                 <td>{{ $article->publication_date }}</td>
                                 <td>{{ @$article->user->name }}</td>
                                 <td>

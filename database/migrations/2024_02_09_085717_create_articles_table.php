@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->text('content')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->timestamp('publication_date')->default(now());
+            $table->dateTime('publication_date')->default(now());
             $table->timestamps();
             $table->softDeletes();
 
