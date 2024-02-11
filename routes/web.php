@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,36 +18,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('public/index');
-});
-
-// Route::get('/dashboard', function () {
-//     return view('index');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/', [ArticleController::class, 'index']);
-Route::get('/read/{slug}', [ArticleController::class, 'show']);
-Route::get('/get-public-articles/{limit}/{search?}', [ArticleController::class, 'getPublicArticles']);
-
-Route::middleware('auth')->group(function () {
-    // Dashboard
-    Route::get('/admin/dashboard', function () {
-        return view('index');
-    })->name('dashboard');
-
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
-    Route::group(['middleware' => ['roles:1']], function() {
-        Route::resource('admin/users', UserController::class);
-        Route::post('/admin/switch-user', [AuthenticatedSessionController::class, 'switchUser']);
+// Public Page
+    Route::get('/', function () {
+        return view('public/index');
     });
+    Route::get('/read/{slug}', [ArticleController::class, 'show']);
+    Route::get('/get-public-articles/{limit}/{search?}', [ArticleController::class, 'getPublicArticles']);
+// End Public Page
 
-    Route::resource('/admin/articles', ArticleController::class);
+// Backend Page
+    // Login
+    Route::get('/admin', [AuthenticatedSessionController::class, 'checkLogin']);
+    Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/admin/login', [AuthenticatedSessionController::class, 'store']);
 
-});
+    // Forgot Password
+    Route::get('/admin/forgot-password', [PasswordResetLinkController::class, 'create']) ->name('password.request');
+    Route::post('/admin/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+    Route::get('/admin/reset-password/{username}/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    Route::post('/admin/reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 
-require __DIR__.'/auth.php';
+    // User Already Login
+    Route::middleware('auth')->group(function () {
+        // Dashboard
+        Route::get('/admin/dashboard', function () {
+            return view('index');
+        })->name('dashboard');
+
+        // Admin Role
+        Route::group(['middleware' => ['roles:1']], function() {
+            // CRUD Users
+            Route::resource('admin/users', UserController::class);
+
+            // Switch User
+            Route::post('/admin/switch-user', [AuthenticatedSessionController::class, 'switchUser']);
+        });
+
+        // CRUD Articles
+        Route::resource('/admin/articles', ArticleController::class);
+
+        // Logout
+        Route::post('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    });
+// End Backend Page
