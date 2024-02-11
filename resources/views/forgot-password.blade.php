@@ -19,17 +19,20 @@
                     <div class="auth-logo mb-5">
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Log in.</h1>
+                    <h1 class="auth-title">Forgot Password</h1>
                     {{-- <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p> --}}
 
-                    @error('error')
-                        <div class="alert alert-danger alert-dismissible show fade">
-                            <i class="bi bi-file-excel"></i> {{$message}}
-                            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @enderror
+                    @if ($errors->any())
+                        <div class="card-body pt-0">
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    <i class="bi bi-file-excel"></i> {{ $error }}
 
-                    @if (session('success'))
+                                    <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endforeach
+                        </div>
+                    @elseif (session('success'))
                         <div class="card-body pt-0">
                             <div class="alert alert-success alert-dismissible show fade">
                                 <i class="bi bi-check-circle"></i> {{session('success')}}
@@ -38,23 +41,17 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}" id="login_form">
+                    <form method="POST" action="{{ route('password.email') }}" id="forgot_password_form">
                         @csrf
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="username" required>
+                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="email" required>
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="password" required>
-                            <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="login_submit" onclick='preventDoubleClick("login_form", "login_submit")' type="submit">Log in</button>
-                        <a href="{{ url('/admin/forgot-password') }}" class="btn btn-outline-secondary btn-block btn-lg">Forgot Password</a>
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="forgot_password_submit" onclick='preventDoubleClick("forgot_password_form", "forgot_password_submit")' type="submit">Send Email</button>
+                        <a href="{{ url('/admin/login') }}" class="btn btn-outline-secondary btn-block btn-lg">Log in</a>
                     </form>
                 </div>
             </div>

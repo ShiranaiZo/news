@@ -19,42 +19,41 @@
                     <div class="auth-logo mb-5">
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Log in.</h1>
-                    {{-- <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p> --}}
+                    <h1 class="auth-title">Reset Password</h1>
 
-                    @error('error')
-                        <div class="alert alert-danger alert-dismissible show fade">
-                            <i class="bi bi-file-excel"></i> {{$message}}
-                            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @enderror
-
-                    @if (session('success'))
+                    @if ($errors->any())
                         <div class="card-body pt-0">
-                            <div class="alert alert-success alert-dismissible show fade">
-                                <i class="bi bi-check-circle"></i> {{session('success')}}
-                                <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    <i class="bi bi-file-excel"></i> {{ $error }}
+
+                                    <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endforeach
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}" id="login_form">
+                    <form method="POST" action="{{ route('password.store') }}" id="reset_password_form">
                         @csrf
 
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="username" value="{{ $username }}">
+
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="username" required>
+                            <input type="password" class="form-control form-control-xl" placeholder="New password" name="password" required>
                             <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
+                                <i class="bi bi-lock"></i>
                             </div>
                         </div>
+
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="password" required>
+                            <input type="password" class="form-control form-control-xl" placeholder="Confirm password" name="password_confirmation" required>
                             <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
+                                <i class="bi bi-lock"></i>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="login_submit" onclick='preventDoubleClick("login_form", "login_submit")' type="submit">Log in</button>
-                        <a href="{{ url('/admin/forgot-password') }}" class="btn btn-outline-secondary btn-block btn-lg">Forgot Password</a>
+
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="reset_password_submit" onclick='preventDoubleClick("reset_password_form", "reset_password_submit")' type="submit">Reset Password</button>
                     </form>
                 </div>
             </div>

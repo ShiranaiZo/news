@@ -8,7 +8,7 @@
         <div class="input-group" style="width: 30%">
             <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2" id="search_articles" value="">
             <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="clearSearch()">Clear</button>
-            <button class="btn btn-primary" type="button" id="button-addon1" onclick="getArticles()">Cari</button>
+            <button class="btn btn-primary" type="button" id="button-addon1" onclick="getArticles()">Search</button>
         </div>
         <div class="filter-show d-flex align-items-center">
             <span class="me-2">Filter:</span>

@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Role <span class="text-danger">*</span></label>
-                        </div>
+                            </div>
 
                             <div class="col-md-8 form-group">
                                 <select class="form-select @error('role') is-invalid @enderror" name="role">
