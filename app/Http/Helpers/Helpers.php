@@ -1,11 +1,19 @@
 <?php
 
-function cut_sentences($text, $maxRow = 2) {
-    // Membagi kalimat menjadi baris-baris
-    $baris = explode("</p>", $text);
+use App\Models\User;
 
-    $potongan = array_slice($baris, 0, $maxRow - 1);
-    $hasil = implode("\n", $potongan);
+function getUsers(){
+    $users = User::orderBy('name')->get();
 
-    return $hasil;
+    return $users;
+}
+
+function getUserID(){
+    return Session::get('user_id') ?? Auth::id();
+}
+
+function thisUser(){
+    $user = User::find(getUserID());
+
+    return $user;
 }

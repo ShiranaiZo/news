@@ -12,16 +12,9 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $from = null;
-
-        if ($request->get('from') && Auth::user()->role == 1) {
-            $from = $request->get('from');
-        }
-
-        $data['articles'] = Article::where('user_id', $from ?? Auth::id())->latest()->get();
-        $data['users'] = User::whereNot('id', Auth::id())->orderBy('name')->get();
+        $data['articles'] = Article::where('user_id', getUserID())->latest()->get();
 
         return view('articles.index', $data);
     }
@@ -62,7 +55,6 @@ class ArticleController extends Controller
             }
         }
 
-        $data['user_id'] = Auth::user()->id;
         $data['publication_date'] = date('Y-m-d H:i:s');
 
         $article = Article::create($data);
@@ -85,9 +77,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $data['article'] = Article::find($id);
+        $data['article'] = Article::where('id', $id)->where('user_id', getUserID())->first();
 
-        return view('articles.edit', $data);
+        if ($data['article']) {
+            return view('articles.edit', $data);
+        }
+
+        abort(404);
     }
 
     /**
@@ -95,7 +91,6 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Example of validation
         $request->validate([
             'image' => 'nullable|image',
             'title' => 'required',
@@ -105,24 +100,28 @@ class ArticleController extends Controller
 
         $data = $request->except('_method', '_token', 'image');
 
-        $article = Article::find($id);
+        $article = Article::where('id', $id)->where('user_id', getUserID())->first();
 
-        $destination = 'assets/attachments/article_thumbnails/';
+        if ($article) {
+            $destination = 'assets/attachments/article_thumbnails/';
 
-        $file = $request->file('image');
+            $file = $request->file('image');
 
-        if ($file) {
-            $file_name = uniqid().'_'.time().'.'.$file->getClientOriginalExtension();
-            $move = $file->move($destination, $file_name);
+            if ($file) {
+                $file_name = uniqid().'_'.time().'.'.$file->getClientOriginalExtension();
+                $move = $file->move($destination, $file_name);
 
-            if ($move) {
-                $data['image'] = $destination.$file_name;
+                if ($move) {
+                    $data['image'] = $destination.$file_name;
+                }
             }
+
+            $article->update($data);
+
+            return redirect('/admin/articles')->with('success', 'Article Updated!');
         }
 
-        $article->update($data);
-
-        return redirect('/admin/articles')->with('success', 'Article Updated!');
+        abort(404);
     }
 
     /**
@@ -130,10 +129,16 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::find($id);
-        $article->delete();
+        $article = Article::where('id', $id)->where('user_id', getUserID())->first();
 
-        return redirect('/admin/articles')->with('success', 'Article Deleted!');
+        if ($article) {
+            $article->delete();
+
+            return redirect('/admin/articles')->with('success', 'Article Deleted!');
+        }
+
+        abort(404);
+
     }
 
     function getPublicArticles($limit = 10, $search = null)

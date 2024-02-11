@@ -27,7 +27,7 @@
                     </a>
                 </div>
 
-                @if (Auth::user()->role == 1)
+                {{-- @if (Auth::user()->role == 1)
                     <div class="float-end">
                         <div class="filter-show d-flex align-items-center">
                             <span class="me-2">From:</span>
@@ -40,7 +40,7 @@
                             </select>
                         </div>
                     </div>
-                @endif
+                @endif --}}
             </div>
 
             <div class="card-body">

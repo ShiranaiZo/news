@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['roles:1']], function() {
         Route::resource('admin/users', UserController::class);
+        Route::post('/admin/switch-user', [AuthenticatedSessionController::class, 'switchUser']);
     });
 
     Route::resource('/admin/articles', ArticleController::class);

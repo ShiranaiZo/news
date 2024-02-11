@@ -19,6 +19,13 @@
 </head>
 
 <body>
+    @php
+        // remove session user id when not in admin/articles
+        if (!request()->is('admin/articles*')) {
+            session()->forget('user_id');
+        }
+    @endphp
+
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">

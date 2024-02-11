@@ -45,6 +45,8 @@
                     @method('POST')
                     @csrf
 
+                    <input type="hidden" name="user_id" value="{{ getUserID() }}">
+
                     <div class="form-body">
                         <div class="row">
                             <div class="form-group col-md-6">
