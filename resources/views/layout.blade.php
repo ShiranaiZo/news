@@ -21,7 +21,7 @@
 <body>
     @php
         // remove session user id when not in admin/articles
-        if (!request()->is('admin/articles*')) {
+        if (!request()->is(['admin/articles*'])) {
             session()->forget('user_id');
         }
     @endphp

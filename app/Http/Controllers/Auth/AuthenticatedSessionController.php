@@ -63,12 +63,21 @@ class AuthenticatedSessionController extends Controller
     }
 
     public function switchUser(Request $request) {
+        // find user by id
         $user = User::find($request->user_id);
 
+        // if user found, put user_id to session
         if ($user) {
             Session::put('user_id', $request->user_id);
         }
 
-        return redirect('/admin/articles');
+        // get previous url
+        $url = url()->previous();
+
+        // Explode url for array
+        $get_url = explode('/', $url);
+
+        // redirect to articles index page
+        return redirect('/'.$get_url[3].'/'. $get_url[4]);
     }
 }
