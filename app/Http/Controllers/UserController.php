@@ -12,8 +12,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        // get latest users
         $data['users'] = User::latest()->get();
 
+        // redirect to users index view with data
         return view('users.index', $data);
     }
 
@@ -22,6 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        // redirect to create user view
         return view('users.create');
     }
 
@@ -30,6 +33,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // validation
         $request->validate([
             'role' => 'required',
             'email'=>'required|unique:users,email,NULL,id,deleted_at,NULL|email:rfc,filter',
@@ -38,23 +42,18 @@ class UserController extends Controller
             'password'=>'required|without_spaces|min:8',
         ]);
 
+        // collect data request
         $data = $request->except('_method', '_token');
 
         if($request->get('password') != ''){
             $data['password'] = bcrypt($request->get('password'));
         }
 
+        // create user
         $user = User::create($data);
 
+        // redirect to users index view with success message
         return redirect('admin/users')->with('success', 'User Saved!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -62,8 +61,10 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        // get user by id
         $result['user'] = User::find($id);
 
+        // redirect to edit user view with data
         return view('users.edit', $result);
     }
 
@@ -72,6 +73,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // validation
         $request->validate([
             'role' => 'required',
             'email'=>'required|unique:users,email,'.$id.',id,deleted_at,NULL|email:rfc,filter',
@@ -80,14 +82,19 @@ class UserController extends Controller
             'password'=>'nullable|without_spaces|min:8',
         ]);
 
+        // collect data request  except password
         $data = $request->except('_method', '_token', 'password');
 
+        // if password not empty
         if($request->get('password') != ''){
+            // hash password and collect to data
             $data['password'] = bcrypt($request->get('password'));
         }
 
+        // update user by id
         $user = User::find($id)->update($data);
 
+        // redirect to users index view with success message
         return redirect('admin/users')->with('success', 'User Updated!');
     }
 
@@ -96,8 +103,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        // delete user by id
         $user = User::find($id)->delete();
 
+        // redirect to users index view with success message
         return redirect()->back()->with('success', 'User Removed!');
     }
 }

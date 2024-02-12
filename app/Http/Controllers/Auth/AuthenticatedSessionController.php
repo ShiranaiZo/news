@@ -15,6 +15,7 @@ use Session;
 class AuthenticatedSessionController extends Controller
 {
     public function checkLogin(){
+        // Check if user is authenticated
         if (Auth::check()) {
             return redirect("admin/dashboard");
         }else{
@@ -27,6 +28,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        // redirect to login view
         return view('login');
     }
 
@@ -41,10 +43,13 @@ class AuthenticatedSessionController extends Controller
             'password' => 'required',
         ]);
 
+        // Authenticate user
         $request->authenticate();
 
+        // set session
         $request->session()->regenerate();
 
+        // redirect to dashboard
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -53,12 +58,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        // Logout user
         Auth::guard('web')->logout();
 
+        // remove/reset session
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
+        // redirect to login page
         return redirect('/admin/login');
     }
 
