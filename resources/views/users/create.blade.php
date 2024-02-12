@@ -87,17 +87,6 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row">
-                            <div class="col-12 col-md-8 offset-md-4 form-group">
-                                <div class='form-check'>
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="show" class="form-check-input">
-                                        <label for="show">Show</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
                         <div class="col-sm-12 d-flex justify-content-end mt-4">
                             <button type="button" class="btn btn-primary me-1 mb-1 submit_create_user" id="submit_create_user" onclick='preventDoubleClick("form_create_user", "submit_create_user")'>Submit</button>
 
@@ -108,25 +97,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        $(document).ready(function () {
-            // show and hide password
-            $('#show').click(function(){
-                if($(this).is(':checked')){
-                    $('#password').prop('type', 'text')
-                }else{
-                    $('#password').prop('type', 'password')
-                }
-            })
-		});
-
-        // Function for prevent double click
-        function preventDoubleClick(id_form, id_button){
-            $('#'+id_button).attr('disabled', true)
-            $('#'+id_form).submit()
-        }
-    </script>
 @endsection

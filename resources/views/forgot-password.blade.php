@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="{{asset('assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/pages/auth.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/images/logo/favicon.svg')}}" type="image/x-icon">
@@ -20,7 +20,6 @@
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Forgot Password</h1>
-                    {{-- <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p> --}}
 
                     @if ($errors->any())
                         <div class="card-body pt-0">
@@ -45,16 +44,19 @@
                         @csrf
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="email" required>
+                            <input type="text" class="form-control form-control-xl" placeholder="Email" name="email" required value="{{ old('email') }}">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
+
                         <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="forgot_password_submit" onclick='preventDoubleClick("forgot_password_form", "forgot_password_submit")' type="submit">Send Email</button>
+
                         <a href="{{ url('/admin/login') }}" class="btn btn-outline-secondary btn-block btn-lg">Log in</a>
                     </form>
                 </div>
             </div>
+
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
 
@@ -64,8 +66,6 @@
     </div>
 
     <script src="{{asset('assets/js/bootstrap.js')}}"></script>
-    {{-- <script src="{{asset('assets/js/app.js')}}"></script> --}}
-
     <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
 
     <script>

@@ -42,6 +42,7 @@
                     <h6 class="mb-0 text-gray-600">{{ thisUser()->name }}</h6>
                     <p class="mb-0 text-sm text-gray-600">{{ config("custom.roles.".thisUser()->role) }}</p>
                 </div>
+
                 <div class="user-img d-flex align-items-center">
                     <div class="avatar avatar-md">
                         <img src="{{ asset('assets/images/faces/1.jpg')}}">
@@ -49,24 +50,5 @@
                 </div>
             </div>
         </a>
-        {{-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-            <li>
-                <h6 class="dropdown-header">Hello, John!</h6>
-            </li>
-            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
-                    Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                    Settings</a></li>
-            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
-                    Wallet</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
-                <li><a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-            </form>
-        </ul> --}}
     </div>
 </div>

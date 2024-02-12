@@ -19,6 +19,7 @@
                     <div class="auth-logo mb-5">
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
+
                     <h1 class="auth-title">Log in.</h1>
 
                     @if ($errors->any())
@@ -44,22 +45,26 @@
                         @csrf
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="username" required>
+                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="username" required value="{{ old('username') }}">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
+
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="Password" name="password" required>
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
+
                         <button class="btn btn-primary btn-block btn-lg shadow-lg mb-3" id="login_submit" onclick='preventDoubleClick("login_form", "login_submit")' type="submit">Log in</button>
+
                         <a href="{{ url('/admin/forgot-password') }}" class="btn btn-outline-secondary btn-block btn-lg">Forgot Password</a>
                     </form>
                 </div>
             </div>
+
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
 
@@ -69,8 +74,6 @@
     </div>
 
     <script src="{{asset('assets/js/bootstrap.js')}}"></script>
-    {{-- <script src="{{asset('assets/js/app.js')}}"></script> --}}
-
     <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
 
     <script>

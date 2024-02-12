@@ -122,12 +122,6 @@
             })
         });
 
-        // Function for prevent double click
-        function preventDoubleClick(id_form, id_button){
-            $('#'+id_button).attr('disabled', true)
-            $('#'+id_form).submit()
-        }
-
         $('#title').on('input', function() {
             var title = $(this).val()
             var slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')

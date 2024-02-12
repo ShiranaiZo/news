@@ -43,27 +43,6 @@
     </div>
 @endsection
 
-{{-- @if (!$articles->isEmpty())
-    @foreach ($articles as $article)
-        <div class="row g-0 col-md-6 mb-3">
-            <img src="{{ $article->image }}" class="img-fluid rounded-start col-lg-6" style="width: 200px; object-fit: contain;">
-
-            <div class="card-body col-md-6 d-flex flex-column">
-                <h5 class="card-title fw-bold">{{$article->title}}</h5>
-                {!! cut_sentences($article->content,2) !!}
-
-                <p class="mt-auto mb-0"> <!-- Apply mt-auto directly to the paragraph -->
-                    <small class="text-muted">{{ @$article->user->name }} - {{ \Carbon\Carbon::parse($article->publication_date)->diffForHumans() }}</small>
-                </p>
-            </div>
-        </div>
-    @endforeach
-@else
-    <div class="col-12 text-center">
-        No news yet
-    </div>
-@endif --}}
-
 @section('js')
     <script src="{{asset('assets/extensions/moment/moment.min.js')}}"></script>
 
@@ -75,8 +54,6 @@
         function getArticles() {
             let limit = $('#filter_show').val();
             let search = $('#search_articles').val() ?? '';
-
-            console.log(search, 'ini seracghnya')
 
             $.ajax({
                 type: "GET",

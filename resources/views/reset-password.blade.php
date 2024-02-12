@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="{{asset('assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/pages/auth.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/images/logo/favicon.svg')}}" type="image/x-icon">
@@ -19,6 +19,7 @@
                     <div class="auth-logo mb-5">
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
+
                     <h1 class="auth-title">Reset Password</h1>
 
                     @if ($errors->any())
@@ -41,6 +42,7 @@
 
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="New password" name="password" required>
+
                             <div class="form-control-icon">
                                 <i class="bi bi-lock"></i>
                             </div>
@@ -48,6 +50,7 @@
 
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="Confirm password" name="password_confirmation" required>
+
                             <div class="form-control-icon">
                                 <i class="bi bi-lock"></i>
                             </div>
@@ -57,6 +60,7 @@
                     </form>
                 </div>
             </div>
+
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
 
@@ -66,8 +70,6 @@
     </div>
 
     <script src="{{asset('assets/js/bootstrap.js')}}"></script>
-    {{-- <script src="{{asset('assets/js/app.js')}}"></script> --}}
-
     <script src="{{asset('assets/extensions/jquery/jquery.min.js')}}"></script>
 
     <script>
