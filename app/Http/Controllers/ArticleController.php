@@ -40,7 +40,7 @@ class ArticleController extends Controller
             'image' => 'required|image',
             'title' => 'required',
             'slug' => 'required|unique:articles,slug,NULL,id,deleted_at,NULL',
-            'content' => 'required',
+            'content' => 'required|summernote_required',
         ]);
 
         // collect data request except image
@@ -123,9 +123,9 @@ class ArticleController extends Controller
             'image' => 'nullable|image',
             'title' => 'required',
             'slug' => 'required|unique:articles,slug,'.$id.',id,deleted_at,NULL',
-            'content' => 'required',
+            'content' => 'required|summernote_required',
         ]);
-
+        // dd($request->get('content'));
         // collect data request except image
         $data = $request->except('_method', '_token', 'image');
 

@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="form-group col-md-8">
-                            <label class="form-label">Thumbnail <span class="text-danger">*</span></label>
+                            <label class="form-label">Image <span class="text-danger">*</span></label>
                             <input type="file" class="image-preview-filepond" name="image" id="image">
                         </div>
 
@@ -133,6 +133,5 @@
             var slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
             $('#slug').val(slug)
         })
-
     </script>
 @endsection

@@ -60,12 +60,12 @@
 
                         <div class="row">
                             <div class="form-group col-md-8">
-                                <label class="form-label">Thumbnail <span class="text-danger">*</span></label>
+                                <label class="form-label">Image <span class="text-danger">*</span></label>
                                 <input type="file" class="image-preview-filepond" name="image" id="image">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label class="form-label">Thumbnail Old <span class="text-danger">*</span></label>
+                                <label class="form-label">Image Old <span class="text-danger">*</span></label>
                                 <img class="d-block" src="{{ asset($article->image ?? 'assets/images/samples/building.jpg') }}" width="100%">
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <label class="form-label">Content <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="content" name="content">{{ $article->content }}</textarea>
+                                <textarea class="form-control" id="content" name="content">{{$article->content}}</textarea>
                             </div>
                         </div>
 
@@ -111,6 +111,14 @@
                 $(".filepond--drop-label").addClass("is-invalid")
             @endif
 
+            setTimeout(function() {
+                @if($errors->has('content'))
+                    $(".note-editing-area").addClass("is-invalid")
+                @endif
+
+                $(".note-editing-area").addClass("form-control")
+            }, 100);
+
             $('#content').summernote({
                 tabsize: 1,
                 height: 1000,
@@ -128,6 +136,5 @@
             var slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
             $('#slug').val(slug)
         })
-
     </script>
 @endsection
