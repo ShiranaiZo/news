@@ -17,14 +17,14 @@
                 <form action="{{url('/admin/switch-user')}}" id="switch_user" method="POST">
                     @csrf
                     <select name="user_id" id="switch_user_id" class="form-control" onchange="$('#switch_user').submit()">
-                        <option value="{{ Auth::id() }}" {{ getUserID() == Auth::id() ? 'selected' : ''}}>Me (This Account)</option>
+                        <option value="{{ Auth::id() }}" {{ getUserID() == Auth::id() ? 'selected' : ''}}>{{ Auth::user()->username }} - {{ config('custom.roles.'.Auth::user()->role) }}</option>
 
                         @foreach(getUsers() as $user)
                             @if ($user->id == Auth::id())
                                 @continue
                             @endif
 
-                            <option value="{{$user->id}}" {{ getUserID() == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                            <option value="{{$user->id}}" {{ getUserID() == $user->id ? 'selected' : '' }}>{{$user->username}} - {{ config('custom.roles.'.$user->role) }}</option>
                         @endforeach
                     </select>
                 </form>

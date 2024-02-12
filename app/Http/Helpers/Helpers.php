@@ -3,7 +3,7 @@
 use App\Models\User;
 
 function getUsers(){
-    $users = User::orderBy('name')->get();
+    $users = User::orderBy('username')->get();
 
     return $users;
 }
