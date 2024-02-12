@@ -42,12 +42,11 @@ class UserController extends Controller
             'password'=>'required|without_spaces|min:8',
         ]);
 
-        // collect data request
-        $data = $request->except('_method', '_token');
+        // collect data request except password
+        $data = $request->except('_method', '_token', 'password');
 
-        if($request->get('password') != ''){
-            $data['password'] = bcrypt($request->get('password'));
-        }
+        // hash password and collect to data
+        $data['password'] = bcrypt($request->get('password'));
 
         // create user
         $user = User::create($data);
@@ -62,10 +61,10 @@ class UserController extends Controller
     public function edit(string $id)
     {
         // get user by id
-        $result['user'] = User::find($id);
+        $data['user'] = User::find($id);
 
         // redirect to edit user view with data
-        return view('users.edit', $result);
+        return view('users.edit', $data);
     }
 
     /**
