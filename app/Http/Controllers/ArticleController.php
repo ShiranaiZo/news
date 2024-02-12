@@ -69,7 +69,11 @@ class ArticleController extends Controller
     {
         $data['article'] = Article::where('slug', $slug)->first();
 
-        return view('public.detail', $data);
+        if ($data['article']) {
+            return view('public.detail', $data);
+        }
+
+        abort(404);
     }
 
     /**
