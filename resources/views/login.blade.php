@@ -20,16 +20,18 @@
                         <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Log in.</h1>
-                    {{-- <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p> --}}
 
-                    @error('error')
-                        <div class="alert alert-danger alert-dismissible show fade">
-                            <i class="bi bi-file-excel"></i> {{$message}}
-                            <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+                    @if ($errors->any())
+                        <div class="card-body pt-0">
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    <i class="bi bi-file-excel"></i> {{ $error }}
+
+                                    <button type="button" class="btn-close btn-close-session" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endforeach
                         </div>
-                    @enderror
-
-                    @if (session('success'))
+                    @elseif (session('success'))
                         <div class="card-body pt-0">
                             <div class="alert alert-success alert-dismissible show fade">
                                 <i class="bi bi-check-circle"></i> {{session('success')}}
